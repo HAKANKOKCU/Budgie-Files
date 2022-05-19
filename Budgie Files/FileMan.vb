@@ -6,14 +6,14 @@
         mainw = MainWin
     End Sub
     Sub Delete()
-        If MsgBox("Are you sure about that?" + vbNewLine + "THIS OPTION DOESNT RECYLE", MsgBoxStyle.YesNo, "Delete File?") = MsgBoxResult.Yes Then
+        If MsgBox("Delete File?" + vbNewLine + "THIS OPTION DOESNT RECYLE", MsgBoxStyle.YesNo, "Delete File?") = MsgBoxResult.Yes Then
             Try
                 If isDir Then
                     My.Computer.FileSystem.DeleteDirectory(path, FileIO.DeleteDirectoryOption.DeleteAllContents)
-                    mainw.gotolocat(mainw.currentpath)
+                    mainw.gotolocat(mainw.currenttabpath)
                 Else
                     My.Computer.FileSystem.DeleteFile(path)
-                    mainw.gotolocat(mainw.currentpath)
+                    mainw.gotolocat(mainw.currenttabpath)
                 End If
             Catch ex As Exception
                 MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -35,6 +35,10 @@
         rnm.fltorename = path
         rnm.isDir = isDir
         rnm.ShowDialog()
-        mainw.gotolocat(mainw.currentpath)
+        mainw.gotolocat(mainw.currenttabpath)
+    End Sub
+    Sub openInNewTab()
+        mainw.newtab()
+        mainw.gotolocat(path)
     End Sub
 End Class

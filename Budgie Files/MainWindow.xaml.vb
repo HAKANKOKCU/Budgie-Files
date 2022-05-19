@@ -1,11 +1,37 @@
 ﻿Class MainWindow 
-    Public currentpath As String = ""
+    Public currenttabpath As String = ""
+    Dim currentpaths As New Dictionary(Of Integer, String)
     Dim dbmp As New BitmapImage()
     Dim imbmp As New BitmapImage()
     Public filetocopy As String
     Public copyingdir As Boolean = False
     Dim contexts As New ArrayList
+    Dim brushconvert As New BrushConverter
+    Public txcolor As Brush = Brushes.Black
+    Public WithEvents fileexplorer As StackPanel
+    Sub newtab()
+        Dim ti As New ScrollViewer
+        Dim tc As New StackPanel
+        ti.Content = tc
+        fileexplorer = tc
+        Dim tii As New TabItem
+        tii.Content = ti
+        tii.Header = "New Tab"
+        tabb.SelectedIndex = tabb.Items.Add(tii)
+    End Sub
     Private Sub mywin_Loaded(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
+        If My.Settings.DarkTheme Then
+            Me.Background = brushconvert.ConvertFrom("#041014")
+            txcolor = Brushes.White
+            Label1.Foreground = Brushes.White
+            Label2.Foreground = Brushes.White
+            Label3.Foreground = Brushes.White
+            theme.Foreground = Brushes.White
+            locationtb.Foreground = Brushes.White
+            locationtb.CaretBrush = Brushes.White
+            newtabbtn.Foreground = Brushes.White
+            theme.Content = IIf(My.Settings.DarkTheme, "Light Theme", "Dark Theme")
+        End If
         For Each a As IO.DriveInfo In IO.DriveInfo.GetDrives
             Dim btn As New lifile
             Dim eventlisten As New btneventlisten(Me)
@@ -17,7 +43,10 @@
                 btn.title.Content = a.DriveType.ToString
                 btn.subtitle.Content = a.Name
             End If
+            btn.title.Foreground = txcolor
+            btn.subtitle.Foreground = txcolor
             Dim lihand As New LifileHandler(btn)
+            lihand.txcolor = txcolor
             AddHandler btn.MouseLeftButtonUp, AddressOf eventlisten.gotoloc
             StackPanel1.Children.Add(btn)
         Next
@@ -27,9 +56,12 @@
         imbmp.BeginInit()
         imbmp.UriSource = New Uri("/Budgie Files;component/iconimg.png", UriKind.Relative)
         imbmp.EndInit()
+        newtab()
     End Sub
     Sub gotolocat(ByVal location As String)
-        currentpath = location
+        tabb.SelectedItem.header = IIf(My.Computer.FileSystem.GetName(location) = "", location, My.Computer.FileSystem.GetName(location))
+        currentpaths(tabb.SelectedIndex) = location
+        currenttabpath = location
         locationtb.Text = location
         For Each cont As ContextMenu In contexts
             cont.Items.Clear()
@@ -39,6 +71,7 @@
             For Each a As String In My.Computer.FileSystem.GetDirectories(location)
                 Dim li As New lifile
                 Dim lihandler As New LifileHandler(li)
+                lihandler.txcolor = txcolor
                 li.title.Content = My.Computer.FileSystem.GetName(a)
                 li.subtitle.Content = a
                 li.Icon.Source = dbmp
@@ -48,6 +81,13 @@
                 Dim eventlisten As New btneventlisten(Me)
                 eventlisten.gotto = a
                 Dim context As New ContextMenu
+                Dim nmitem As New MenuItem
+                nmitem.Header = My.Computer.FileSystem.GetName(a)
+                nmitem.IsEnabled = False
+                context.Items.Add(nmitem)
+                Dim ntitem As New MenuItem
+                ntitem.Header = "Open In New Tab"
+                context.Items.Add(ntitem)
                 Dim copitem As New MenuItem
                 copitem.Header = "Copy"
                 context.Items.Add(copitem)
@@ -70,10 +110,15 @@
                 AddHandler copitem.Click, AddressOf fm.Copy
                 AddHandler propitem.Click, AddressOf fm.Info
                 AddHandler li.MouseLeftButtonUp, AddressOf eventlisten.gotoloc
+                AddHandler ntitem.Click, AddressOf fm.openInNewTab
+                li.title.Foreground = txcolor
+                li.subtitle.Foreground = txcolor
+                li.sizeinf.Foreground = txcolor
             Next
             For Each a As String In My.Computer.FileSystem.GetFiles(location)
                 Dim li As New lifile
                 Dim lihandler As New LifileHandler(li)
+                lihandler.txcolor = txcolor
                 li.title.Content = My.Computer.FileSystem.GetName(a)
                 li.subtitle.Content = a
                 Try
@@ -95,6 +140,10 @@
                 Dim opf As New openfl
                 opf.path = a
                 Dim context As New ContextMenu
+                Dim nmitem As New MenuItem
+                nmitem.Header = My.Computer.FileSystem.GetName(a)
+                nmitem.IsEnabled = False
+                context.Items.Add(nmitem)
                 Dim copitem As New MenuItem
                 copitem.Header = "Copy"
                 context.Items.Add(copitem)
@@ -119,6 +168,9 @@
                 'li.Label1.Foreground = Brushes.White
                 'li.Label2.Foreground = Brushes.Wheat
                 fileexplorer.Children.Add(li)
+                li.title.Foreground = txcolor
+                li.subtitle.Foreground = txcolor
+                li.sizeinf.Foreground = txcolor
             Next
         Catch ex As Exception
             Dim a As New Label
@@ -126,6 +178,8 @@
             a.FontSize = 25
             Dim b As New Label
             b.Content = ex.Message
+            a.Foreground = txcolor
+            b.Foreground = txcolor
             b.FontSize = 14
             fileexplorer.Children.Add(a)
             fileexplorer.Children.Add(b)
@@ -133,7 +187,10 @@
     End Sub
 
     Private Sub Label1_MouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles Label1.MouseUp
-        Dim crt As String = currentpath
+        Dim crt As String = currentpaths(tabb.SelectedIndex)
+        If crt(crt.Length - 1) = "\" Then
+            crt = crt.Remove(crt.Length - 1, 1)
+        End If
         Dim list = crt.Split("\")
         Dim path = ""
         For aa As Integer = 0 To list.Length - 2
@@ -150,7 +207,7 @@
     Private Sub Label2_MouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles Label2.MouseUp
         Dim nw As New NewDiag
         Try
-            Dim crt = IIf(currentpath(currentpath.Length - 1) = "\", currentpath, currentpath + "\")
+            Dim crt = IIf(currentpaths(tabb.SelectedIndex)(currentpaths(tabb.SelectedIndex).Length - 1) = "\", currentpaths(tabb.SelectedIndex), currentpaths(tabb.SelectedIndex) + "\")
             nw.ShowDialog()
             Try
                 If nw.crt Then
@@ -159,7 +216,7 @@
                     Else
                         My.Computer.FileSystem.WriteAllText(crt + nw.newfilename, nw.filecontent, False)
                     End If
-                    gotolocat(currentpath)
+                    gotolocat(currentpaths(tabb.SelectedIndex))
                 End If
             Catch ex As Exception
                 MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -175,22 +232,14 @@
     Sub copyhere()
         Try
             If copyingdir Then
-                My.Computer.FileSystem.CopyDirectory(filetocopy, IIf(currentpath(currentpath.Length - 1) = "\", currentpath, currentpath + "\") + My.Computer.FileSystem.GetName(filetocopy))
+                My.Computer.FileSystem.CopyDirectory(filetocopy, IIf(currentpaths(tabb.SelectedIndex)(currentpaths(tabb.SelectedIndex).Length - 1) = "\", currentpaths(tabb.SelectedIndex), currentpaths(tabb.SelectedIndex) + "\") + My.Computer.FileSystem.GetName(filetocopy))
             Else
-                My.Computer.FileSystem.WriteAllBytes(IIf(currentpath(currentpath.Length - 1) = "\", currentpath, currentpath + "\") + My.Computer.FileSystem.GetName(filetocopy), My.Computer.FileSystem.ReadAllBytes(filetocopy), False)
+                My.Computer.FileSystem.WriteAllBytes(IIf(currentpaths(tabb.SelectedIndex)(currentpaths(tabb.SelectedIndex).Length - 1) = "\", currentpaths(tabb.SelectedIndex), currentpaths(tabb.SelectedIndex) + "\") + My.Computer.FileSystem.GetName(filetocopy), My.Computer.FileSystem.ReadAllBytes(filetocopy), False)
             End If
-            gotolocat(currentpath)
+            gotolocat(currentpaths(tabb.SelectedIndex))
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
         End Try
-    End Sub
-    Sub copydir(ByVal path As String)
-        For Each a As String In My.Computer.FileSystem.GetDirectories(path)
-            copydir(a)
-        Next
-        For Each a As String In My.Computer.FileSystem.GetFiles(path)
-
-        Next
     End Sub
 
     Private Sub locationtb_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Input.KeyEventArgs) Handles locationtb.KeyUp
@@ -207,4 +256,24 @@
             Return Math.Floor(bytesize / 1024).ToString + " KB"
         End If
     End Function
+
+    Private Sub theme_MouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles theme.MouseUp
+        My.Settings.DarkTheme = Not My.Settings.DarkTheme
+        theme.Content = IIf(My.Settings.DarkTheme, "Light Theme", "Dark Theme")
+        My.Settings.Save()
+        MsgBox("Restart App To See Changes", MsgBoxStyle.Information)
+    End Sub
+
+    Private Sub tabb_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles tabb.SelectionChanged
+        fileexplorer = tabb.SelectedItem.content.content
+        Try
+            locationtb.Text = currentpaths(tabb.SelectedIndex)
+            currenttabpath = currentpaths(tabb.SelectedIndex)
+        Catch
+        End Try
+    End Sub
+
+    Private Sub newtabbtn_MouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles newtabbtn.MouseUp
+        newtab()
+    End Sub
 End Class

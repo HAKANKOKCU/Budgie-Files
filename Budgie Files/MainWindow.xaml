@@ -8,6 +8,7 @@
                 <Label Name="Label1">Up</Label>
                 <Label Name="Label2">New</Label>
                 <Label Name="Label3">Paste Here</Label>
+                <Label Name="theme">Dark Theme</Label>
             </StackPanel>
             <ScrollViewer DockPanel.Dock="Left" Width="230">
                 <StackPanel Name="StackPanel1" Width="230"/>
@@ -16,12 +17,14 @@
             <DockPanel Name="StackPanel2" DockPanel.Dock="Right">
                 <Border CornerRadius="12" Height="26" BorderThickness="2" BorderBrush="Orange" Padding="2" DockPanel.Dock="Top">
                     <DockPanel>
+                        <Label DockPanel.Dock="Right" Name="newtabbtn" Padding="0" Margin="0,-2,0,0" FontSize="18">+</Label>
                         <TextBox Margin="0" Background="Transparent" BorderThickness="0" Name="locationtb" VerticalAlignment="Center" BorderBrush="#00000000" SelectionBrush="#FFFF9D00"></TextBox>
                     </DockPanel>
                 </Border>
-                <ScrollViewer Name="ScrollViewer1">
+                <TabControl Background="#00000000" Name="tabb" Padding="0" BorderBrush="#00000000"></TabControl>
+                <!--<ScrollViewer Name="ScrollViewer1">
                     <StackPanel Name="fileexplorer"></StackPanel>
-                </ScrollViewer>
+                </ScrollViewer>-->
             </DockPanel>
         </DockPanel>
     </Grid>

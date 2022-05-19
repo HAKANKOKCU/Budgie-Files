@@ -34,3 +34,4 @@ C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files
 C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Debug\FDInfo.g.vb
 C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Debug\FDRename.baml
 C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Debug\FDRename.g.vb
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\bin\Debug\Budgie Files.exe.config
