@@ -1,7 +1,15 @@
 ﻿Public Class FDInfo
     Property path As String
     Property isDir As Boolean
+    Dim brushconvert As New BrushConverter
     Private Sub Window_Loaded(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
+        If My.Settings.DarkTheme Then
+            Me.Background = brushconvert.ConvertFrom("#041014")
+            NameLabel.Foreground = Brushes.White
+            PathText.Foreground = Brushes.White
+            TypeLabel.Foreground = Brushes.White
+            Size.Foreground = Brushes.White
+        End If
         NameLabel.Content = "Name : " + My.Computer.FileSystem.GetName(path)
         PathText.Text = "Path : " + path
         If isDir Then

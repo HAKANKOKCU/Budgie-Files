@@ -3,22 +3,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="New.." Height="252" Width="447" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/Budgie%20Files;component/new.png">
     <Grid>
-        <TabControl>
+        <TabControl Background="{x:Null}">
             <TabItem Header="File">
-                <StackPanel HorizontalAlignment="Stretch">
+                <StackPanel HorizontalAlignment="Stretch" Name="fl">
                     <DockPanel>
-                        <Label DockPanel.Dock="Left">Name</Label>
+                        <Label DockPanel.Dock="Left" Name="nmlbl">Name</Label>
                         <TextBox Height="24" Name="FileName"></TextBox>
                     </DockPanel>
-                    <Label>Content</Label>
+                    <Label Name="cntlbl">Content</Label>
                     <TextBox AcceptsTab="True" AcceptsReturn="True" Height="100" Name="flcnt" TextWrapping="Wrap"></TextBox>
                     <Button Name="CrtBtnFl">Create</Button>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Directory">
-                <StackPanel HorizontalAlignment="Stretch">
+                <StackPanel HorizontalAlignment="Stretch" Name="dr">
                     <DockPanel>
-                        <Label DockPanel.Dock="Left">Name</Label>
+                        <Label DockPanel.Dock="Left" Name="dnmlbl">Name</Label>
                         <TextBox Height="24" Name="DirName"></TextBox>
                     </DockPanel>
                     <Button Name="CrtBtnDr">Create</Button>

@@ -48,6 +48,7 @@
             End If
             btn.title.Foreground = txcolor
             btn.subtitle.Foreground = txcolor
+            btn.sizeinf.Foreground = txcolor
             Dim lihand As New LifileHandler(btn)
             lihand.txcolor = txcolor
             AddHandler btn.MouseLeftButtonUp, AddressOf eventlisten.gotoloc
