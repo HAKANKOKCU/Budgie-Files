@@ -1,9 +1,0 @@
-﻿<Window x:Class="FDRename"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Rename" Height="101" Width="377" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
-    <StackPanel Margin="10">
-        <TextBox Height="23" Name="rn"></TextBox>
-        <Button Name="Button1">Rename</Button>
-    </StackPanel>
-</Window>
