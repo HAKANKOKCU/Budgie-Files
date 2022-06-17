@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="52" d:DesignWidth="500" HorizontalAlignment="Stretch">
     <Grid>
-        
+        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Background="#82FF9D00" Name="szf"></Grid>
         <DockPanel HorizontalAlignment="Stretch" Name="DockPanel1" VerticalAlignment="Stretch">
             <Image HorizontalAlignment="Left" Name="Icon" Stretch="Uniform" VerticalAlignment="Stretch" Width="44" Height="44" DockPanel.Dock="Left" />
             <Label DockPanel.Dock="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Name="sizeinf">-</Label>

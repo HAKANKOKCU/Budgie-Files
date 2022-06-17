@@ -13,6 +13,7 @@
         Dim ti As New ScrollViewer
         Dim tc As New StackPanel
         ti.Content = tc
+        ti.VerticalScrollBarVisibility = ScrollBarVisibility.Auto
         fileexplorer = tc
         Dim tii As New TabItem
         tii.Content = ti
@@ -39,6 +40,8 @@
             If a.IsReady Then
                 btn.title.Content = a.VolumeLabel
                 btn.subtitle.Content = a.Name
+                btn.szf.Width = ((a.TotalSize - a.AvailableFreeSpace) / a.TotalSize) * 230
+                btn.sizeinf.Content = BytesMS(a.TotalSize - a.AvailableFreeSpace) + "/" + BytesMS(a.TotalSize)
             Else
                 btn.title.Content = a.DriveType.ToString
                 btn.subtitle.Content = a.Name
@@ -63,9 +66,9 @@
         currentpaths(tabb.SelectedIndex) = location
         currenttabpath = location
         locationtb.Text = location
-        For Each cont As ContextMenu In contexts
-            cont.Items.Clear()
-        Next
+        'For Each cont As ContextMenu In contexts
+        '   cont.Items.Clear()
+        'Next
         Try
             fileexplorer.Children.Clear()
             For Each a As String In My.Computer.FileSystem.GetDirectories(location)
@@ -123,7 +126,7 @@
                 li.subtitle.Content = a
                 Try
                     Dim flinfo As New IO.FileInfo(a)
-                    li.sizeinf.Content = GetSize(flinfo.Length)
+                    li.sizeinf.Content = BytesMS(flinfo.Length)
                     Dim ex = flinfo.Extension.ToLower
                     If ex = ".png" Or ex = ".jpg" Or ex = ".jpeg" Or ex = ".bmp" Then
                         'Dim bmp As New BitmapImage()
@@ -249,13 +252,6 @@
         End If
     End Sub
 
-    Function GetSize(ByVal bytesize As Integer) As String
-        If Math.Floor(bytesize / 1024) > 1024 Then
-            Return Math.Floor(Math.Floor(bytesize / 1024) / 1024).ToString + " MB"
-        Else
-            Return Math.Floor(bytesize / 1024).ToString + " KB"
-        End If
-    End Function
 
     Private Sub theme_MouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles theme.MouseUp
         My.Settings.DarkTheme = Not My.Settings.DarkTheme
@@ -276,4 +272,30 @@
     Private Sub newtabbtn_MouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles newtabbtn.MouseUp
         newtab()
     End Sub
+    Public Function BytesMS(ByVal Filesize As Object) As String
+        Dim Size As Object
+        Select Case VarType(Filesize)
+            Case vbByte, vbInteger, vbLong, vbCurrency, vbSingle, vbDouble, vbDecimal
+                Filesize = CDec(Filesize)
+                If Filesize >= 1024 Then
+                    For Each Size In {" kB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB"}
+                        Select Case Filesize
+                            Case Is < 10240
+                                Return Format$(Filesize / 1024, "0.00") & Size
+                                Exit For
+                            Case Is < 102400
+                                Return Format$(Filesize / 1024, "0.0") & Size
+                                Exit For
+                            Case Is < 1024000
+                                Return Format$(Filesize / 1024, "0") & Size
+                                Exit For
+                            Case Else
+                                Filesize = Filesize / 1024
+                        End Select
+                    Next
+                Else
+                    Return Filesize & " bytes"
+                End If
+        End Select
+    End Function
 End Class

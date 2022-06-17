@@ -22,6 +22,14 @@ InitializeComponent
 	<summary>
 FDInfo
 </summary>
+</member><member name="M:BudgieFiles.FDRename.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:BudgieFiles.FDRename">
+	<summary>
+FDRename
+</summary>
 </member><member name="M:BudgieFiles.Application.InitializeComponent">
 	<summary>
 InitializeComponent

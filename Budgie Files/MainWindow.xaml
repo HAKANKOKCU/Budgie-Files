@@ -10,7 +10,7 @@
                 <Label Name="Label3">Paste Here</Label>
                 <Label Name="theme">Dark Theme</Label>
             </StackPanel>
-            <ScrollViewer DockPanel.Dock="Left" Width="230">
+            <ScrollViewer DockPanel.Dock="Left" Width="230" VerticalScrollBarVisibility="Auto">
                 <StackPanel Name="StackPanel1" Width="230"/>
             </ScrollViewer>
             
