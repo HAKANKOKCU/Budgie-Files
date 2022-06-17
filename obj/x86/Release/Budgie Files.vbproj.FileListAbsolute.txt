@@ -1,0 +1,22 @@
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\bin\Release\Budgie Files.exe
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\bin\Release\Budgie Files.pdb
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\bin\Release\Budgie Files.xml
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\FDInfo.baml
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\lifile.baml
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\MainWindow.baml
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\NewDiag.baml
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\FDInfo.g.vb
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\lifile.g.vb
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\MainWindow.g.vb
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\NewDiag.g.vb
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\Application.g.vb
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\Budgie Files_MarkupCompile.cache
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\Budgie Files.g.resources
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\BudgieFiles.Resources.resources
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\Budgie Files.vbproj.GenerateResource.Cache
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\Budgie Files.exe
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\Budgie Files.xml
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\Budgie Files.pdb
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\bin\Release\Budgie Files.exe.config
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\FDRename.baml
+C:\Users\ASUS PC\Documents\Visual Studio 2010\Projects\Budgie Files\Budgie Files\obj\x86\Release\FDRename.g.vb
